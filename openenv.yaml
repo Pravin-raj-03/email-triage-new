@@ -1,0 +1,19 @@
+name: email_triage
+version: 1.0.0
+description: A real-world email triage and management simulator for AI agents.
+entrypoint: app:app
+framework: openenv
+tags: [openenv, productivity, email, agent]
+tasks:
+  - id: archive_newsletters
+    name: Archive Newsletters
+    difficulty: easy
+    description: Archive all emails identified as newsletters or from mailing lists.
+  - id: reply_urgent
+    name: Urgent Reply
+    difficulty: medium
+    description: Reply to an urgent email with a specific confirmation message.
+  - id: inbox_clean
+    name: Inbox Management
+    difficulty: hard
+    description: Clean up the inbox by deleting spam, archiving social updates, and replying to colleagues.
