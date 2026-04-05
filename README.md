@@ -51,11 +51,11 @@ Email triage is a common, high-value task for AI assistants. It requires underst
    ```
 2. Run the FastAPI server:
    ```bash
-   uvicorn app:app --host 0.0.0.0 --port 7860
+   uv run uvicorn server.app:app --host 0.0.0.0 --port 7860
    ```
 
 ### Baseline Inference
-To run the baseline agent (ensure `OPENAI_API_KEY` is set):
+To run the baseline agent (ensure `HF_TOKEN` is set):
 ```bash
 python inference.py
 ```
