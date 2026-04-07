@@ -107,7 +107,10 @@ async def run_single_task(client: OpenAI, task_id: str):
     return score
 
 async def main():
-    client = OpenAI(base_url=API_BASE_URL, api_key=HF_TOKEN)
+    client = OpenAI(
+        base_url=os.environ["API_BASE_URL"],
+        api_key=os.environ["API_KEY"]
+    )
     
     tasks = ["archive_newsletters", "reply_urgent", "inbox_clean"]
     for task in tasks:
