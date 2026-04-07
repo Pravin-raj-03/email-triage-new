@@ -5,7 +5,7 @@ def grade_archive_newsletters(final_state: Dict[str, Email], logs: List[Any] = N
     """Grade Task 1: Archive all newsletters."""
     total_newsletters = [e for e in final_state.values() if e.category in ["promotions", "social"]]
     if not total_newsletters:
-        return 1.0 # Should not happen with current task data
+        return 0.99 # Should not happen with current task data
     
     archived_newsletters = [e for e in total_newsletters if e.status == ES.ARCHIVED]
     unarchived_newsletters = [e for e in total_newsletters if e.status != ES.ARCHIVED]
@@ -17,7 +17,7 @@ def grade_archive_newsletters(final_state: Dict[str, Email], logs: List[Any] = N
     if important_deleted:
         score -= 0.5
         
-    return max(0.0, min(1.0, score))
+    return max(0.01, min(0.99, score))
 
 def grade_reply_urgent(final_state: Dict[str, Email], logs: List[Any] = None) -> float:
     """Grade Task 2: Reply to an urgent email."""
@@ -35,13 +35,13 @@ def grade_reply_urgent(final_state: Dict[str, Email], logs: List[Any] = None) ->
     
     urgent_email = next((e for e in final_state.values() if e.is_urgent), None)
     if not urgent_email:
-        return 0.0
+        return 0.01
     
     # If the urgent email is still in inbox and wasn't deleted, and others were handled.
     if urgent_email.status == ES.INBOX: # Replied emails stay in inbox in our env.py
-        return 1.0
+        return 0.99
     else:
-        return 0.0 # Archived or deleted urgent = Fail.
+        return 0.01 # Archived or deleted urgent = Fail.
 
 def grade_inbox_clean(final_state: Dict[str, Email], logs: List[Any] = None) -> float:
     """Grade Task 3: Multi-step triage."""
@@ -54,7 +54,7 @@ def grade_inbox_clean(final_state: Dict[str, Email], logs: List[Any] = None) -> 
     urgent_score = sum(1 for e in urgent if e.status == ES.INBOX) / len(urgent) if urgent else 1.0
     
     total_score = (spam_score + news_score + urgent_score) / 3.0
-    return max(0.0, min(1.0, total_score))
+    return max(0.01, min(0.99, total_score))
 
 GRADERS = {
     "archive_newsletters": grade_archive_newsletters,
